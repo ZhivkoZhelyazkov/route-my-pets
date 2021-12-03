@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import * as authService from './services/authService';
+import { AuthContext } from './contexts/AuthContext';
 
 import Header from './components/Header/Header';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -14,55 +14,46 @@ import Details from './components/Details/Details';
 import Edit from './components/Edit/Edit';
 
 function App() {
-    const [userInfo, setUserInfo] = useState({ isAuthenticated: false, username: '' });
+    const [user, setUser] = useState({
+        _id: '',
+        email: '',
+        accessToken: ''
+    });
 
-    useEffect(() => {
-        let user = authService.getUser();
-
-        setUserInfo({
-            isAuthenticated: Boolean(user),
-            user
-        });
-    }, []);
-
-    const onLogin = (username) => {
-        setUserInfo({
-            isAuthenticated: true,
-            user: username
-        });
+    const onLogin = (authData) => {
+        setUser(authData);
     };
 
     const onLogout = () => {
-        setUserInfo({
-            isAuthenticated: false,
-            user: null
-        });
+
     };
 
     return (
-        <div id="container">
+        <AuthContext.Provider value={true}>
+            <div id="container">
 
-            <Header {...userInfo} />
+                <Header email={user.email} />
 
-            <main id="site-content">
-                <Routes>
-                    <Route path="/dashboard/*" element={<Dashboard />} />
-                    <Route path="/login" element={<Login onLogin={onLogin} />} />
-                    <Route path="/logout" element={<Logout onLogout={onLogout} />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/my-pets" element={<MyPets />} />
-                    <Route path="/create" element={<Create />} />
-                    <Route path="/details/:petId" element={<Details />} />
+                <main id="site-content">
+                    <Routes>
+                        <Route path="/dashboard/*" element={<Dashboard />} />
+                        <Route path="/login" element={<Login onLogin={onLogin} />} />
+                        <Route path="/logout" element={<Logout onLogout={onLogout} />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/my-pets" element={<MyPets />} />
+                        <Route path="/create" element={<Create />} />
+                        <Route path="/details/:petId" element={<Details />} />
 
-                    {/* <Edit /> */}
-                </Routes>
-            </main>
+                        {/* <Edit /> */}
+                    </Routes>
+                </main>
 
-            <footer id="site-footer">
-                <p>@PetMyPet</p>
-            </footer>
+                <footer id="site-footer">
+                    <p>@PetMyPet</p>
+                </footer>
 
-        </div>
+            </div>
+        </AuthContext.Provider>
     );
 }
 

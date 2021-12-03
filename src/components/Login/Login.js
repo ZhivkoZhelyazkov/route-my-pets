@@ -11,11 +11,16 @@ const Login = ({
 
         let formData = new FormData(e.currentTarget);
         let email = formData.get('email');
+        let password = formData.get('password');
 
-        authService.login(email);
-
-        onLogin(email);
-        navigate('/');
+        authService.login(email, password)
+            .then((authData) => {
+                onLogin(authData);
+                navigate('/dashboard');
+            })
+            .catch(err => {
+                console.log(err);
+            });
     };
 
     return (
