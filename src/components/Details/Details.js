@@ -1,31 +1,53 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import * as petService from '../../services/petService';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const Details = () => {
+    const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
     const [pet, setPet] = useState({});
     const { petId } = useParams();
 
-    useEffect(async () => {
-        let petResult = await petService.getOne(petId);
-        setPet(petResult);
-    }, []);
+    useEffect(() => {
+        petService.getOne(petId)
+            .then(petResult => {
+                setPet(petResult);
+            });
+    }, [petId]);
+
+    const deleteHandler = (e) => {
+        e.preventDefault();
+        petService.destroy(petId, user.accessToken)
+            .then(() => {
+                navigate('/dashboard');
+            });
+    };
+
+    const ownerButtons = (
+        <>
+            <Link className="button" to="edit">Edit</Link>
+            <a className="button" href="#" onClick={deleteHandler}>Delete</a>
+        </>
+    );
+
+    const userButtons = <a className="button" href="#">Like</a>
 
     return (
         <section id="details-page" className="details">
             <div className="pet-information">
                 <h3>Name: {pet.name}</h3>
                 <p className="type">Type: {pet.type}</p>
-                <p className="img"><img src={pet.imageUrl} /></p>
+                <p className="img"><img src={pet.imageUrl} alt="Img" /></p>
                 <div className="actions">
-                    <a className="button" href="#">Edit</a>
-                    <a className="button" href="#">Delete</a>
-
-                    <a className="button" href="#">Like</a>
+                    {user._id && (user._id === pet._ownerId
+                        ? ownerButtons
+                        : userButtons
+                    )}
 
                     <div className="likes">
-                        <img className="hearts" src="/images/heart.png" />
-                        <span id="total-likes">Likes: {pet.likes}</span>
+                        <img className="hearts" src="/images/heart.png" alt="Img" />
+                        <span id="total-likes">Likes: {pet.likes?.length}</span>
                     </div>
                 </div>
             </div>

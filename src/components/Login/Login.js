@@ -1,9 +1,11 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as authService from '../../services/authService';
 
-const Login = ({
-    onLogin
-}) => {
+import { AuthContext } from '../../contexts/AuthContext';
+
+const Login = () => {
+    const { login } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const onLoginHandler = (e) => {
@@ -15,7 +17,7 @@ const Login = ({
 
         authService.login(email, password)
             .then((authData) => {
-                onLogin(authData);
+                login(authData);
                 navigate('/dashboard');
             })
             .catch(err => {

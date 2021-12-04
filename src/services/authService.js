@@ -1,5 +1,7 @@
+const baseUrl = 'http://localhost:3030';
+
 // export const login = (email, password) => {
-//     return fetch('http://localhost:3030/users/login', {
+//     return fetch(`${baseUrl}/users/login`, {
 //         method: 'POST',
 //         headers: {
 //             'content-type': 'application/json'
@@ -10,7 +12,7 @@
 // };
 
 export const login = async (email, password) => {
-    let response = await fetch('http://localhost:3030/users/login', {
+    let response = await fetch(`${baseUrl}/users/login`, {
         method: 'POST',
         headers: {
             'content-type': 'application/json'
@@ -28,9 +30,24 @@ export const login = async (email, password) => {
 
 
 
+export const register = (email, password) => {
+    return fetch(`${baseUrl}/users/register`, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({email, password})
+    })
+        .then(response => response.json());
+};
 
-export const logout = () => {
-    localStorage.removeItem('username');
+
+export const logout = (token) => {
+    return fetch(`${baseUrl}/users/logout`, {
+        headers: {
+            'X-Authorization': token
+        },
+    });
 };
 
 export const getUser = () => {
