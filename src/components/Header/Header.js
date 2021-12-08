@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 
 const Header = () => {
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     let guestNavigation = (
         <div id="guest">

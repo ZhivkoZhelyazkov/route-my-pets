@@ -1,7 +1,9 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import * as petService from '../../services/petService';
 import { AuthContext } from '../../contexts/AuthContext';
+
 
 const Create = () => {
     const { user } = useContext(AuthContext);
@@ -9,8 +11,8 @@ const Create = () => {
 
     const onPetCreate = (e) => {
         e.preventDefault();
-        let formData = new FormData(e.currentTarget);
 
+        let formData = new FormData(e.currentTarget);
         let name = formData.get('name');
         let description = formData.get('description');
         let imageUrl = formData.get('imageUrl');

@@ -1,22 +1,16 @@
-import { Routes, Route, Link } from 'react-router-dom';
 import PetList from '../PetList';
+import './Dashboard.css';
 
 // import logo from '../../logo.svg';
 // import { ReactComponent as Logo } from '../../logo.svg';
-import './Dashboard.css';
+
 
 const Dashboard = () => {
     return (
         <section id="dashboard-page" className="dashboard">
             <h1>Dashboard</h1>
-            <nav>
-                <Link to="types">Types</Link>
-            </nav>
             <section>
-                <Routes>
-                    <Route path="/" element={<PetList />} />
-                    <Route path="/types" element={<p>Types ...</p>} />
-                </Routes>
+                <PetList />
             </section>
 
             {/* <img src={logo} alt='logo' /> */}
