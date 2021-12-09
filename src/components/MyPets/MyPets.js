@@ -6,13 +6,13 @@ const MyPets = () => {
                 <li className="otherPet">
                     <h3>Name: Milo</h3>
                     <p>Type: dog</p>
-                    <p className="img"><img src="/images/dog.png" /></p>
+                    <p className="img"><img src="/images/dog.png" alt="Img" /></p>
                     <a className="button" href="#">Details</a>
                 </li>
                 <li className="otherPet">
                     <h3>Name: Tom</h3>
                     <p>Type: cat</p>
-                    <p className="img"><img src="/images/cat1.png" /></p>
+                    <p className="img"><img src="/images/cat1.png" alt="Img" /></p>
                     <a className="button" href="#">Details</a>
                 </li>
             </ul>

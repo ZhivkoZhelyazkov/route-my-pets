@@ -139,7 +139,7 @@ div.actions {
 }
 div.actions a {
     margin-right: 10px;
-    height: 25px;
+    /* height: 25px; */
 }
 
 .deletePet>form,

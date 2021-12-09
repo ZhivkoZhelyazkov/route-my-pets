@@ -35,3 +35,16 @@ export const destroy = (petId, token) => {
     })
         .then(response => response.json());
 };
+
+export const like = (petId, pet, token) => {
+    return fetch(`${baseUrl}/pets/${petId}`, {
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json',
+            'X-Authorization': token
+        },
+        body: JSON.stringify(pet)
+    })
+        .then(response => response.json());
+};
+
