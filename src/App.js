@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route } from 'react-router-dom';
 
 import { AuthProvider } from './contexts/AuthContext';
+import { NotificationProvider } from './contexts/NotificationContext';
 // import ErrorBoundary from './components/Common/ErrorBoundary';
 
 import Header from './components/Header/Header';
@@ -15,13 +16,18 @@ import Create from './components/Create/Create';
 import Edit from './components/Edit';
 import Details from './components/Details/Details';
 
+import Notification from './components/Common/Notification';
+
 
 function App() {
     return (
         // <ErrorBoundary>
-            <AuthProvider>
+        <AuthProvider>
+            <NotificationProvider>
                 <div id="container">
                     <Header />
+
+                    <Notification />
 
                     <main id="site-content">
                         <Routes>
@@ -40,7 +46,8 @@ function App() {
                         <p>@PetMyPet</p>
                     </footer>
                 </div>
-            </AuthProvider>
+            </NotificationProvider>
+        </AuthProvider>
         // </ErrorBoundary>
     );
 }
